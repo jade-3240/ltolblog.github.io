@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ltolblog.github.io</id>
     <title>Gridea</title>
-    <updated>2021-01-05T08:27:55.833Z</updated>
+    <updated>2021-01-06T06:48:59.604Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ltolblog.github.io"/>
     <link rel="self" href="https://ltolblog.github.io/atom.xml"/>
@@ -10,6 +10,120 @@
     <logo>https://ltolblog.github.io/images/avatar.png</logo>
     <icon>https://ltolblog.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[添加多个user-agent与代理ip与自定义opener]]></title>
+        <id>https://ltolblog.github.io/post/tian-jia-duo-ge-user-agent-yu-dai-li-ip/</id>
+        <link href="https://ltolblog.github.io/post/tian-jia-duo-ge-user-agent-yu-dai-li-ip/">
+        </link>
+        <updated>2021-01-06T05:31:13.000Z</updated>
+        <content type="html"><![CDATA[<p>#目的</p>
+<pre><code>    爬取上万条数据时，为了防止被浏览器发现都来自同一个用户访问进而被禁止访问（封号）
+</code></pre>
+<p>#模块</p>
+<pre><code>       urllib.request,random(随机)
+       random使用方法 ：
+                    random.choice(列表)
+       与遍历列表不同在于random时随机输出，遍历列表for i in 列表/range(参数1,参数2)    是按顺序打印出来
+</code></pre>
+<p>#代码</p>
+<pre><code>        agent1=&quot;...&quot;
+        agent2=&quot;...&quot;           
+        ....
+        agentlist=[agent1,agent2....]
+        agent=random.choice(agentlist)
+        head={
+                &quot;user-agent&quot;:agent
+        }
+        proxylist=[
+                {&quot;http&quot;:&quot;192.168.120.32&quot;},
+                ....
+        ]
+        proxy=random.choice(proxylist)
+        proxyHendler=urllib.request.ProxyHendler(proxy)  //构建代理处理器对象
+        opener=urllib.request.build_opener( proxyHendler)  //创建自定义opener来发送请求
+</code></pre>
+<p>#自定义opener</p>
+<pre><code>    urlopen是一个特殊的opener（系统自建的），
+    *基本的urlopen()方法不支持代理，cookie等其他的HTTP/HTTPS高级功能。*
+    使用自定义的opener，用open()调用  即  opener.open(对象)
+    *注意* 
+    如果程序里所有请求都使用自定义opener，可将自定的opener定义为全局对象，
+    代码为：  urllib.request.install_opener()
+
+    步骤：
+            #构建XX处理器对象（专门处理XX请求的对象）
+            例子：
+                    httphandler=urllib.request.HTTPHendler()
+            #创建自定义opener
+                    //将上述构建的处理器对象传递到opener
+                    opener=urllib.request.build_opener(httphandler)
+            #设置全局opener
+                    urllib.request.install_opener(opener)
+            #使用opener发送请求·获取响应信息
+                   response= opener.open(请求对象).read()
+                   或
+                   response=urllib.request.urlopen(请求对象).read()
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[GET请求与POST请求]]></title>
+        <id>https://ltolblog.github.io/post/get-qing-qiu-yu-post-qing-qiu/</id>
+        <link href="https://ltolblog.github.io/post/get-qing-qiu-yu-post-qing-qiu/">
+        </link>
+        <updated>2021-01-06T05:02:43.000Z</updated>
+        <content type="html"><![CDATA[<p>GET请求</p>
+<pre><code>    参数都现实在浏览器网址上，HTTP服务器根据该请求所包含url中的参数来响应内容，即get请求的参数是url的一部分。
+    一般所需伪装浏览器中的头部信息
+</code></pre>
+<p>##处理get请求</p>
+<pre><code>        https://www.baidu.com/s?wd=%E4%BD%A0%E5%A5%BD #url编码
+        import urllib.parse //解析url编码
+        url=&quot;http://www.baidu.com/s?&quot;
+        kwd={
+            &quot;wd&quot;:&quot;你好&quot;
+        }
+        wd=urllib.parse.urlencode(kwd) //将文字转换成url编码
+        url=url+wd  //完整的url=&gt; http://www.baidu.com/s?wd=%E4%BD%A0%E5%A5%BD
+</code></pre>
+<p>POST请求</p>
+<pre><code>    请求的参数在请求体中，消息以隐式的方式进行发送。一般多是需要登陆的信息等安全问题。
+    其中有道翻译里所使用的翻译就是post请求，网站使用的是Ajax-&gt;发送请求只响应想要的相关信息。
+    一般伪装浏览器所需要的信息为：
+    head={
+          user-agent:....
+         cookie:....     //登录的账号密码信息等
+     }
+  有道翻译中还需from data的数据
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一个简单的爬虫代码]]></title>
+        <id>https://ltolblog.github.io/post/yi-ge-jian-dan-de-pa-chong-dai-ma/</id>
+        <link href="https://ltolblog.github.io/post/yi-ge-jian-dan-de-pa-chong-dai-ma/">
+        </link>
+        <updated>2021-01-05T09:32:47.000Z</updated>
+        <content type="html"><![CDATA[<p>#1.明确需求，分析所需爬取的网页<br>
+#2.获取索要爬取的url（部分网站需要更改url部分信息，例如爬取的页数）<br>
+#3.插入所需模块</p>
+<pre><code>    import urllib.request
+    //import urllib.parse(解析或组建url)
+</code></pre>
+<p>#4.伪装浏览器</p>
+<pre><code>    url=&quot;http://www.baidu.com&quot;
+    head={
+        user-agent
+        .....
+    }
+    //创建请求对象，将url和伪装的头部信息传递给对象req
+    req=urllib.request.Request(url,headers=head)
+</code></pre>
+<p>#5.获取响应信息</p>
+<pre><code>    respon=urllib.request.urlopen(req).read()
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[测试]]></title>
         <id>https://ltolblog.github.io/post/ce-shi/</id>

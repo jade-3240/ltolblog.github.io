@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>测试 | Gridea</title>
+<title>添加多个user-agent与代理ip与自定义opener | Gridea</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,8 +18,13 @@
 
 
 
-    <meta name="description" content="此为部署之后的测试。。。
-" />
+    <meta name="description" content="#目的
+    爬取上万条数据时，为了防止被浏览器发现都来自同一个用户访问进而被禁止访问（封号）
+
+#模块
+       urllib.request,random(随机)
+       random使用方法 ：
+             ..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -91,20 +96,67 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">测试</h2>
-            <div class="post-date">2021-01-05</div>
+            <h2 class="post-title">添加多个user-agent与代理ip与自定义opener</h2>
+            <div class="post-date">2021-01-06</div>
             
             <div class="post-content" v-pre>
-              <p>此为部署之后的测试。。。</p>
+              <p>#目的</p>
+<pre><code>    爬取上万条数据时，为了防止被浏览器发现都来自同一个用户访问进而被禁止访问（封号）
+</code></pre>
+<p>#模块</p>
+<pre><code>       urllib.request,random(随机)
+       random使用方法 ：
+                    random.choice(列表)
+       与遍历列表不同在于random时随机输出，遍历列表for i in 列表/range(参数1,参数2)    是按顺序打印出来
+</code></pre>
+<p>#代码</p>
+<pre><code>        agent1=&quot;...&quot;
+        agent2=&quot;...&quot;           
+        ....
+        agentlist=[agent1,agent2....]
+        agent=random.choice(agentlist)
+        head={
+                &quot;user-agent&quot;:agent
+        }
+        proxylist=[
+                {&quot;http&quot;:&quot;192.168.120.32&quot;},
+                ....
+        ]
+        proxy=random.choice(proxylist)
+        proxyHendler=urllib.request.ProxyHendler(proxy)  //构建代理处理器对象
+        opener=urllib.request.build_opener( proxyHendler)  //创建自定义opener来发送请求
+</code></pre>
+<p>#自定义opener</p>
+<pre><code>    urlopen是一个特殊的opener（系统自建的），
+    *基本的urlopen()方法不支持代理，cookie等其他的HTTP/HTTPS高级功能。*
+    使用自定义的opener，用open()调用  即  opener.open(对象)
+    *注意* 
+    如果程序里所有请求都使用自定义opener，可将自定的opener定义为全局对象，
+    代码为：  urllib.request.install_opener()
+
+    步骤：
+            #构建XX处理器对象（专门处理XX请求的对象）
+            例子：
+                    httphandler=urllib.request.HTTPHendler()
+            #创建自定义opener
+                    //将上述构建的处理器对象传递到opener
+                    opener=urllib.request.build_opener(httphandler)
+            #设置全局opener
+                    urllib.request.install_opener(opener)
+            #使用opener发送请求·获取响应信息
+                   response= opener.open(请求对象).read()
+                   或
+                   response=urllib.request.urlopen(请求对象).read()
+</code></pre>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://ltolblog.github.io/post/hello-gridea/">
+                <a href="https://ltolblog.github.io/post/get-qing-qiu-yu-post-qing-qiu/">
                   <h3 class="post-title">
-                    Hello Gridea
+                    GET请求与POST请求
                   </h3>
                 </a>
               </div>

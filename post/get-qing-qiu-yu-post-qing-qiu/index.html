@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | Gridea</title>
+<title>GET请求与POST请求 | Gridea</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,7 +18,13 @@
 
 
 
-    <meta name="description" content="A blog that shares learning life">
+    <meta name="description" content="GET请求
+    参数都现实在浏览器网址上，HTTP服务器根据该请求所包含url中的参数来响应内容，即get请求的参数是url的一部分。
+    一般所需伪装浏览器中的头部信息
+
+##处理get请求
+        https://www..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,14 +94,53 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">GET请求与POST请求</h2>
+            <div class="post-date">2021-01-06</div>
             
-              <a class="tag" href="https://ltolblog.github.io/tag/Ykf1mSNka/">python</a>
+            <div class="post-content" v-pre>
+              <p>GET请求</p>
+<pre><code>    参数都现实在浏览器网址上，HTTP服务器根据该请求所包含url中的参数来响应内容，即get请求的参数是url的一部分。
+    一般所需伪装浏览器中的头部信息
+</code></pre>
+<p>##处理get请求</p>
+<pre><code>        https://www.baidu.com/s?wd=%E4%BD%A0%E5%A5%BD #url编码
+        import urllib.parse //解析url编码
+        url=&quot;http://www.baidu.com/s?&quot;
+        kwd={
+            &quot;wd&quot;:&quot;你好&quot;
+        }
+        wd=urllib.parse.urlencode(kwd) //将文字转换成url编码
+        url=url+wd  //完整的url=&gt; http://www.baidu.com/s?wd=%E4%BD%A0%E5%A5%BD
+</code></pre>
+<p>POST请求</p>
+<pre><code>    请求的参数在请求体中，消息以隐式的方式进行发送。一般多是需要登陆的信息等安全问题。
+    其中有道翻译里所使用的翻译就是post请求，网站使用的是Ajax-&gt;发送请求只响应想要的相关信息。
+    一般伪装浏览器所需要的信息为：
+    head={
+          user-agent:....
+         cookie:....     //登录的账号密码信息等
+     }
+  有道翻译中还需from data的数据
+</code></pre>
+
+            </div>
             
-              <a class="tag" href="https://ltolblog.github.io/tag/8RU18Qbbt/">Gridea</a>
             
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://ltolblog.github.io/post/yi-ge-jian-dan-de-pa-chong-dai-ma/">
+                  <h3 class="post-title">
+                    一个简单的爬虫代码
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
       </div>
     </div>

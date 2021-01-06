@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | Gridea</title>
+<title>一个简单的爬虫代码 | Gridea</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,7 +18,12 @@
 
 
 
-    <meta name="description" content="A blog that shares learning life">
+    <meta name="description" content="#1.明确需求，分析所需爬取的网页
+#2.获取索要爬取的url（部分网站需要更改url部分信息，例如爬取的页数）
+#3.插入所需模块
+    import urllib.request
+    //import urllib.parse(解..." />
+    <meta name="keywords" content="python" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,14 +93,55 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">一个简单的爬虫代码</h2>
+            <div class="post-date">2021-01-05</div>
             
-              <a class="tag" href="https://ltolblog.github.io/tag/Ykf1mSNka/">python</a>
+            <div class="post-content" v-pre>
+              <p>#1.明确需求，分析所需爬取的网页<br>
+#2.获取索要爬取的url（部分网站需要更改url部分信息，例如爬取的页数）<br>
+#3.插入所需模块</p>
+<pre><code>    import urllib.request
+    //import urllib.parse(解析或组建url)
+</code></pre>
+<p>#4.伪装浏览器</p>
+<pre><code>    url=&quot;http://www.baidu.com&quot;
+    head={
+        user-agent
+        .....
+    }
+    //创建请求对象，将url和伪装的头部信息传递给对象req
+    req=urllib.request.Request(url,headers=head)
+</code></pre>
+<p>#5.获取响应信息</p>
+<pre><code>    respon=urllib.request.urlopen(req).read()
+</code></pre>
+
+            </div>
             
-              <a class="tag" href="https://ltolblog.github.io/tag/8RU18Qbbt/">Gridea</a>
+              <div class="tag-container">
+                
+                  <a href="https://ltolblog.github.io/tag/Ykf1mSNka/" class="tag">
+                    python
+                  </a>
+                
+              </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://ltolblog.github.io/post/ce-shi/">
+                  <h3 class="post-title">
+                    测试
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
       </div>
     </div>
